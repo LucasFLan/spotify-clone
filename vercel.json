@@ -1,0 +1,12 @@
+{
+    "projects": [
+      {
+        "name": "spotfy-frontend",
+        "root": "front-end"
+      },
+      {
+        "name": "spotfy-backend",
+        "root": "back-end"
+      }
+    ]
+  }
