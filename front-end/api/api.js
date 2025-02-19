@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "spotify-clone-production-6e2d.up.railway.app";
+const URL = "https://spotify-clone-production-6e2d.up.railway.app";
 
 const responseArtists = await axios.get(`${URL}/artists`);
 const responseSongs = await axios.get(`${URL}/songs`);
