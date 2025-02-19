@@ -17,3 +17,4 @@ app.get('/artists', async(req, res) => {
 app.get('/songs', async(req, res) => {
     res.send(await db.collection("songs").find({}).toArray());
 });
+
