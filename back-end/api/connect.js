@@ -1,11 +1,7 @@
 import {MongoClient} from 'mongodb';
-import dotenv from 'dotenv';
+import 'dotenv/config';
 
-dotenv.config();
-
-const URI = `mongodb+srv://lucaslan10:${process.env.DB_PASSWORD}@cluster0.pmkio.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-
-const client = new MongoClient(URI);
+const client = new MongoClient(process.env.URI);
 
 export const db = client.db(process.env.DB_NAME);
 

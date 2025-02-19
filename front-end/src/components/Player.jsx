@@ -52,6 +52,9 @@ const Player = ({
 
       setIsPlaying(!isPlaying);
       setCurrentTime(formatTime(audioPlayer.current.currentTime));
+    } else {
+      audioPlayer.current.load();
+      setCurrentTime(formatTime(audioPlayer.current.currentTime));
     }
   };
 
