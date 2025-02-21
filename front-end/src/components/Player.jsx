@@ -7,6 +7,7 @@ import {
   faForwardStep,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import VolumeControl from "../components/VolumeControl";
 
 const formatTime = (timeInSeconds) => {
   const minutes = Math.floor(timeInSeconds / 60)
@@ -45,6 +46,12 @@ const Player = ({
     setIsPlaying(!isPlaying);
   };
 
+  const handleVolumeChange = (newVolume) => {
+    if (audioPlayer.current) {
+      audioPlayer.current.volume = newVolume;
+    }
+  };
+
   const previousNext = () => {
     if (isPlaying) {
       audioPlayer.current.pause();
@@ -74,36 +81,39 @@ const Player = ({
 
   return (
     <div className="player">
-      <div className="player__controllers">
-        <Link to={`/song/${randomIdFromArtist}`}>
+      <div className="player__container">
+        <div className="player__controllers">
+          <Link to={`/song/${randomIdFromArtist}`}>
+            <FontAwesomeIcon
+              onClick={() => previousNext()}
+              icon={faBackwardStep}
+            />
+          </Link>
+
           <FontAwesomeIcon
-            onClick={() => previousNext()}
-            icon={faBackwardStep}
+            className="player__icon player__icon--play"
+            icon={isPlaying ? faCirclePause : faCirclePlay}
+            onClick={() => playPause()}
           />
-        </Link>
 
-        <FontAwesomeIcon
-          className="player__icon player__icon--play"
-          icon={isPlaying ? faCirclePause : faCirclePlay}
-          onClick={() => playPause()}
-        />
-
-        <Link to={`/song/${randomId2FromArtist}`}>
-          <FontAwesomeIcon
-            onClick={() => previousNext()}
-            icon={faForwardStep}
-          />
-        </Link>
-      </div>
-
-      <div className="player__progress">
-        <p>{currentTime}</p>
-        <div className="player__bar">
-          <div ref={progressBar} className="player__bar-progress"></div>
+          <Link to={`/song/${randomId2FromArtist}`}>
+            <FontAwesomeIcon
+              onClick={() => previousNext()}
+              icon={faForwardStep}
+            />
+          </Link>
         </div>
-        <p>{duration}</p>
+
+        <div className="player__progress">
+          <p>{currentTime}</p>
+          <div className="player__bar">
+            <div ref={progressBar} className="player__bar-progress"></div>
+          </div>
+          <p>{duration}</p>
+        </div>
+        <audio ref={audioPlayer} src={audio}></audio>
       </div>
-      <audio ref={audioPlayer} src={audio}></audio>
+      <VolumeControl onVolumeChange={handleVolumeChange} />
     </div>
   );
 };
